@@ -22,4 +22,4 @@ if __name__ == '__main__':
     args = parser.parse_args()
     options['debug'] = could_be_yes(args.debug)
     options['player'] = args.player
-    Play(options)
+    Play().do_start(**options)

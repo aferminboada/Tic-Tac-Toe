@@ -14,18 +14,17 @@ from backend.messages import (
 class Play(object):
     how_begin = None
     computer = None
+    player = None
     turn_of = None
     board = None
     movements = 0
+    debug = False
 
-    def __init__(self, options):
-        self.debug = options.get('debug')
-        self.computer = options.get('computer')
-        self.player = options.get('player')
+    def do_start(self, **options):
+        self.debug = options.get('debug', False)
+        self.computer = options.get('computer', 'PC')
+        self.player = options.get('player', 'PLAYER')
         self.choose_how_begin()
-        self.do_start()
-
-    def do_start(self):
         self.clear_game()
         exist_a_winner = self.start()
         if exist_a_winner is None:

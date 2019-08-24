@@ -14,15 +14,20 @@ def clean_positions(board):
     return [(index + 1) for index in range(0, 9) if board[index] == -1]
 
 
-def a_winner(board):
-    # find if exist any winner
+def get_segments(board):
+    segments = []
     for combination in combinations_wins:
         segment = [board[c] for c in combination]
+        segments.append(segment)
+    return segments
+
+
+def a_winner(board):
+    # find if exist any winner
+    for segment in get_segments(board):
         if all_equals(segment):
             return True
-
     return False
-    # raise NotImplementedError()
 
 
 def all_equals(segment):
