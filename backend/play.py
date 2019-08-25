@@ -1,5 +1,5 @@
 from random import randint
-from backend.moves import move
+from backend.moves import defense_move
 from backend.utils import (
     clean_positions,
     a_winner,
@@ -29,6 +29,7 @@ class Play(object):
         exist_a_winner = self.start()
         if exist_a_winner is None:
             print("draw")
+            return None
 
         print("winner ", exist_a_winner)
 
@@ -49,11 +50,12 @@ class Play(object):
         # if is turn of player show the board and wait for input
         self.show_board()
         mark = 'X' if self.how_begin == self.turn_of else 'O'
+        print(mark, self.turn_of)
         if self.turn_of:
-            opt = self.wait_move_player()
-        else:
+            opt = defense_move(self.board, mark)
             # no define movement
-            # opt = move(self.board, self.movements, mark)
+            # opt = self.wait_move_player()
+        else:
             opt = self.wait_move_player()
 
         # any code here

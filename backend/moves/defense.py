@@ -1,19 +1,79 @@
+from backend.utils import (
+    get_segments
+)
+borders = {
+      0: [0, 3, 5],
+      2: [0, 4, 7],
+      6: [4, 5, 2],
+      8: [2, 3, 7]
+}
+mediums = {
+      1: [0, 6],
+      3: [1, 5],
+      5: [1, 7],
+      7: [2, 6]
+}
 
-def defense_move(board):
+
+def defense_move(board, who_iam):
     # if one cell will represent a loss is necessary play this cell
     # if two or more cell represent loss is necessary choose the best cell to play
-    cell_loss = get_cell_loss(board)
+    cell_loss = get_cell_loss(board, who_iam)
     if len(cell_loss) == 1:
-        return cell_loss[0]
+        return cell_loss[0][0]
 
     return decided_loss(cell_loss)
 
 
 def decided_loss(cell_loss):
     # undefined logic
-    raise NotImplementedError()
+    # for a while choice the first option
+    return cell_loss[0][0]
 
 
-def get_cell_loss(board):
-    # get if any cell will represent lost the game
-    raise NotImplementedError()
+def get_cell_loss(board, who_iam):
+    attack_coefficient = []
+    for index in range(9):
+        if board[index] == -1:
+            # is a empty cell
+            coefficient = get_attack_coefficient(board, index, who_iam)
+            attack_coefficient.append((index, coefficient))
+
+    # sort the most dangerous cells
+    attack_coefficient.sort(key=lambda x: x[1], reverse=True)
+    # find only the most dangerous cells
+    return list(
+        filter(lambda x: x[1] == attack_coefficient[0][1], attack_coefficient)
+    )
+
+
+def get_attack_coefficient(board, key, who_iam):
+    coefficient = 0
+    segments = get_segments(board)
+    if key in borders:
+        positions = borders.get(key)
+    elif key in mediums:
+        positions = mediums.get(key)
+    else:
+        _positions = set()
+        for _, border in borders.items():
+            for segment in border:
+                _positions.add(segment)
+
+        for _, medium in mediums.items():
+            for segment in medium:
+                _positions.add(segment)
+
+        positions = list(_positions)
+
+    for pos in positions:
+        coefficient += is_under_attack(segments[pos], who_iam)
+    return coefficient
+
+
+def is_under_attack(segment, who_iam):
+    opponent = 0
+    for cell in segment:
+        opponent += cell != who_iam and cell != -1
+
+    return opponent == 2
