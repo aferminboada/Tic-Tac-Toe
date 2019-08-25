@@ -1,5 +1,5 @@
 from random import randint
-from backend.moves import defense_move
+from backend.moves import move as start_play_pc
 from backend.utils import (
     clean_positions,
     a_winner,
@@ -27,6 +27,7 @@ class Play(object):
         self.choose_how_begin()
         self.clear_game()
         exist_a_winner = self.start()
+        self.show_board()
         if exist_a_winner is None:
             print("draw")
             return None
@@ -34,7 +35,7 @@ class Play(object):
         print("winner ", exist_a_winner)
 
     def choose_how_begin(self):
-        self.how_begin = randint(0, 1)  # 0 is PLAYER, 1 is PC
+        self.how_begin = 1  # randint(0, 1)  # 0 is PLAYER, 1 is PC
         self.turn_of = self.how_begin
         if self.how_begin:
             print(start_pc.format(computer=self.computer))
@@ -52,7 +53,7 @@ class Play(object):
         mark = 'X' if self.how_begin == self.turn_of else 'O'
         print(mark, self.turn_of)
         if self.turn_of:
-            opt = defense_move(self.board, mark)
+            opt = start_play_pc(self.board, mark)
             # no define movement
             # opt = self.wait_move_player()
         else:

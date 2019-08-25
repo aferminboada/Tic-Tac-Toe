@@ -74,6 +74,21 @@ class DefenseTest(unittest.TestCase):
             0
         )
 
+        board = [
+            'X', 'X', 'O',
+            -1, -1, -1,
+            -1, -1, 'O'
+        ]
+
+        self.assertEqual(
+            self.Play.get_attack_coefficient(
+                board,
+                5,  # position to check
+                'X'  # who I am
+            ),
+            1
+        )
+
     def test_get_cell_loss(self):
         board = [
             -1, -1, 'O',
@@ -103,6 +118,20 @@ class DefenseTest(unittest.TestCase):
                 )
             ),
             8
+        )
+        board = [
+            'X', 'X', 'O',
+            -1, -1, -1,
+            -1, -1, 'O'
+        ]
+        self.assertEqual(
+            len(
+                self.Play.get_cell_loss(
+                    board,
+                    'X'
+                )
+            ),
+            1
         )
 
 

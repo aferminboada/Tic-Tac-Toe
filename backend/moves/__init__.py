@@ -1,1 +1,1 @@
-from .defense import defense_move
+from .defense import move
