@@ -35,7 +35,7 @@ class Play(object):
         print("winner ", exist_a_winner)
 
     def choose_how_begin(self):
-        self.how_begin = 1  # randint(0, 1)  # 0 is PLAYER, 1 is PC
+        self.how_begin = randint(0, 1)  # 0 is PLAYER, 1 is PC
         self.turn_of = self.how_begin
         if self.how_begin:
             print(start_pc.format(computer=self.computer))
