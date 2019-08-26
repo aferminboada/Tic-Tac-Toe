@@ -50,7 +50,6 @@ class Play(object):
         # if is turn of player show the board and wait for input
         self.show_board()
         mark = 'X' if self.how_begin == self.turn_of else 'O'
-        print(mark, self.turn_of)
         if self.turn_of:
             opt = start_play_pc(self.board, mark).start()
             # no define movement
