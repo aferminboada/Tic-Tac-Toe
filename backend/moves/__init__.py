@@ -1,1 +1,1 @@
-from .defense import move
+from .board import Board
