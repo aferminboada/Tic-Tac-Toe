@@ -2,7 +2,7 @@ build:
 	docker build -t vieja .
 
 create:
-	docker run -itd --name cont_vieja -v pwd:/vieja vieja
+	docker run -itd --name cont_vieja -v "$PWD":/vieja vieja
 
 start:
 	docker container start cont_vieja
