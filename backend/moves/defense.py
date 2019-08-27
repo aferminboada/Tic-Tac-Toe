@@ -1,7 +1,3 @@
-from backend.utils import (
-    get_segments,
-    combinations_wins,
-)
 from .move_utils import borders, mediums, middle
 
 

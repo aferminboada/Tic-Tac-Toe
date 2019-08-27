@@ -13,6 +13,7 @@ class Move(object):
 	loss = 0
 	prob = 0.0
 	segments = None
+
 	def __init__(self, pos, who_iam, segments):
 		self.pos = pos
 		self.who_iam = who_iam

@@ -1,5 +1,6 @@
 import unittest
 from backend.moves import defense
+from backend.utils import get_segments
 
 
 class DefenseTest(unittest.TestCase):
@@ -39,8 +40,8 @@ class DefenseTest(unittest.TestCase):
         ]
         self.assertEqual(
             self.Play.get_attack_coefficient(
-                board,
-                0,  # position to check
+                get_segments(board),
+                [0, 1, 2],  # positions to check
                 'O'  # who I am
             ),
             1
@@ -53,11 +54,11 @@ class DefenseTest(unittest.TestCase):
         ]
         self.assertEqual(
             self.Play.get_attack_coefficient(
-                board,
-                1,  # position to check
+                get_segments(board),
+                [0, 1, 2],  # position to check
                 'O'  # who I am
             ),
-            0
+            1
         )
 
         board = [
@@ -67,8 +68,8 @@ class DefenseTest(unittest.TestCase):
         ]
         self.assertEqual(
             self.Play.get_attack_coefficient(
-                board,
-                0,  # position to check
+                get_segments(board),
+                [0, 1, 2],  # position to check
                 'O'  # who I am
             ),
             0
@@ -82,56 +83,37 @@ class DefenseTest(unittest.TestCase):
 
         self.assertEqual(
             self.Play.get_attack_coefficient(
-                board,
-                5,  # position to check
+                get_segments(board),
+                [0, 1, 2],  # position to check
                 'X'  # who I am
             ),
-            1
+            0
         )
 
-    def test_get_cell_loss(self):
-        board = [
-            -1, -1, 'O',
-            'X', 'X', -1,
-            'X', 'O', -1
-        ]
-        self.assertEqual(
-            len(
-                self.Play.get_cell_loss(
-                    board,
-                    'O'
-                )
-            ),
-            2
+    def test_i_will_win(self):
+        self.assertTrue(
+            self.Play.i_will_win(
+                [-1, -1, -1],
+                'O'
+            )
         )
-
-        board = [
-            -1, -1, -1,
-            -1, 'X', -1,
-            -1, -1, -1
-        ]
-        self.assertEqual(
-            len(
-                self.Play.get_cell_loss(
-                    board,
-                    'O'
-                )
-            ),
-            8
+        self.assertFalse(
+            self.Play.i_will_win(
+                ['X', -1, -1],
+                'O'
+            )
         )
-        board = [
-            'X', 'X', 'O',
-            -1, -1, -1,
-            -1, -1, 'O'
-        ]
-        self.assertEqual(
-            len(
-                self.Play.get_cell_loss(
-                    board,
-                    'X'
-                )
-            ),
-            1
+        self.assertFalse(
+            self.Play.i_will_win(
+                ['O', 'X', -1],
+                'O'
+            )
+        )
+        self.assertTrue(
+            self.Play.i_will_win(
+                ['O', -1, -1],
+                'O'
+            )
         )
 
 

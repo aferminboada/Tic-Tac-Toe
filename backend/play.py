@@ -31,7 +31,7 @@ class Play(object):
             print("Tie")
             return None
 
-        print(winner, self.pc if exist_a_winner else self.player)
+        print(winner, self.computer if exist_a_winner else self.player)
         print("-------------------------")
 
     def choose_how_begin(self):
