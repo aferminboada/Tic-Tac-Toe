@@ -1,5 +1,5 @@
 from random import randint
-from backend.moves import Board as start_play_pc
+from backend.moves import Board as StartPlayPC
 from backend.utils import (
     clean_positions,
     a_winner,
@@ -52,7 +52,7 @@ class Play(object):
         self.show_board()
         mark = 'X' if self.how_begin == self.turn_of else 'O'
         if self.turn_of:
-            opt = start_play_pc(self.board, mark).start()
+            opt = StartPlayPC(self.board, mark).start()
             # no define movement
             # opt = self.wait_move_player()
         else:

@@ -36,7 +36,7 @@ class Move(object):
 		self.loss = get_attack_coefficient(self.segments, self.positions, self.who_iam)
 
 	def get_prob(self):
-		cant = 4 # max number of possibilities
+		cant = 4  # max number of possibilities
 		wins = 0
 		for pos_segment in self.positions:
 			if i_will_win(self.segments[pos_segment], self.who_iam):

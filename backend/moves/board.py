@@ -3,6 +3,7 @@ from backend.utils import (
 )
 from .move import Move
 
+
 class Board(object):
 	board = None
 	who_iam = None
@@ -26,13 +27,13 @@ class Board(object):
 				self.moves.append(Move(key, self.who_iam, self.segments))
 
 	def choose_action(self):
-		wins = list(filter(lambda x: x.win == True, self.moves))
+		wins = list(filter(lambda x: x.win, self.moves))
 		if len(wins) > 0:
 			return wins[0].pos
 
 		losses = list(filter(lambda x: x.loss > 0, self.moves))
 		if len(losses) > 0:
-			# need choise a best option
+			# need choice a best option
 			return losses[0].pos
 
 		self.moves.sort(key=lambda x: x.prob, reverse=True)
